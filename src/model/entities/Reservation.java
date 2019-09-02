@@ -41,9 +41,21 @@ public class Reservation {
 		
 	}
 	
-	public void updateDates(Date checkIn, Date checkOut) {
+	public String updateDates(Date checkIn, Date checkOut) {
+		Date now = new Date(); //auxiliar para teste de atualização
+		
+		//se a data de checkin é antiga ou a data de checkout
+		if (checkIn.before(now) || checkOut.before(now)) {
+			return "Reservation dates for update must be future dates";
+		}
+		//se a data de checkout está posterior a de checkin
+		if (!checkOut.after(checkIn)) {
+			return "Check-out date must be after check-in date";
+		}
+		
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
+		return null;
 	}
 	
 	@Override
